@@ -8,8 +8,8 @@ app.use(express.json());
 
 async function connectDB() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/userdb');
-        console.log('Connected to userdb database (GET server)');
+        await mongoose.connect('mongodb://127.0.0.1:27017/messagedb');
+        console.log('Connected to messagedb database (GET server)');
     } catch (err) {
         console.error('Database connection error:', err);
         process.exit(1);
@@ -19,20 +19,19 @@ async function connectDB() {
 (async () => {
     await connectDB();
 
-    const userSchema = new mongoose.Schema({
+    const messageSchema = new mongoose.Schema({
         name: String,
-        family_name: String,
-        mail: String,
+        email: String,
         message: String
-    }, { collection: 'users' });
+    }, { collection: 'messages', timestamps: true });
 
-    const User = mongoose.model('User', userSchema);
+    const Message = mongoose.model('Message', messageSchema);
 
 
-    app.get('/users', async (req, res) => {
+    app.get('/messages', async (req, res) => {
         try {
-            const users = await User.find();
-            res.json(users);
+            const messages = await Message.find();
+            res.json(messages);
         } catch (err) {
             console.log(err);
             res.status(500).send('Server error');
@@ -40,7 +39,7 @@ async function connectDB() {
     });
 
 
-    app.listen(4000, () => {
-        console.log('GET server is listening at port 4000');
+    app.listen(3000, () => {
+        console.log('GET server is listening at port 3000');
     });
 })();

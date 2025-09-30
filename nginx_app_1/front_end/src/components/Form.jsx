@@ -16,7 +16,7 @@ export default function Form() {
     }
 
     try {
-      const res = await fetch("http://localhost:3000/messages", {
+      const res = await fetch("https://localhost/modify/addMessage", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ name, email, message }),

@@ -7,8 +7,8 @@ app.use(express.json())
 
 async function connectDB() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/userdb');
-        console.log('Connected to userdb database');
+        await mongoose.connect('mongodb://127.0.0.1:27017/messagedb');
+        console.log('Connected to messagedb database');
     } catch (err) {
         console.error('Database connection error:', err);
         process.exit(1);
@@ -18,27 +18,44 @@ async function connectDB() {
 ( async () => {
     await connectDB();
 
-    const userSchema = new mongoose.Schema({
+    const messageSchema = new mongoose.Schema({
         name: String,
-        family_name: String,
-        mail: String,
+        email: String,
         message: String
-    }, { collection: 'users' });
+    }, { collection: 'messages', timestamps: true });
 
-    const User = mongoose.model('User', userSchema);
+    const Message = mongoose.model('Message', messageSchema);
 
-    app.post('/addUser', async (req, res) => {
+    app.post('/addMessage', async (req, res) => {
         try {
-            const user = new User(req.body);
-            const savedUser = await user.save();
-            res.json({ message: "Inserted!", data: savedUser });
+            const message = new Message(req.body);
+            const savedMessage = await message.save();
+            res.json({ message: "Inserted!", data: savedMessage });
         } catch (err) {
             console.log(err);
             res.status(500).send('Server error');
         }
     });
 
-    app.listen(5000, () => {
-        console.log('Server is listening at port 5000');
+    
+    app.delete('/deleteMessage/:id', async (req, res) => {
+        try {
+            const { id } = req.params;
+            const deletedMessage = await Message.findByIdAndDelete(id);
+
+            if (!deletedMessage) {
+                return res.status(404).json({ message: "Message not found" });
+            }
+
+            res.json({ message: "Message deleted", data: deletedMessage });
+        } catch (err) {
+            console.error(err);
+            res.status(500).send("Server error");
+        }
+    });
+
+
+    app.listen(3000, () => {
+        console.log('Server is listening at port 3000');
     });
 })();
