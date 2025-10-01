@@ -7,7 +7,7 @@ export default function Messages() {
   useEffect(() => {
     async function fetchMessages() {
       try {
-        const res = await fetch("http://localhost:3000/messages");
+        const res = await fetch("https://localhost/get/messages");
         if (res.ok) {
           const data = await res.json();
           setMessages(data);
@@ -26,12 +26,12 @@ export default function Messages() {
   async function handleDelete(id) {
     if (window.confirm("Supprimer ce message ?")) {
       try {
-        const res = await fetch(`http://localhost:3000/messages/${id}`, {
+        const res = await fetch(`https://localhost/modify/deleteMessage/${id}`, {
           method: "DELETE",
         });
 
         if (res.ok) {
-          setMessages(messages.filter((m) => m.id !== id));
+          setMessages(messages.filter((m) => m._id !== id));
         } else {
           alert("Erreur serveur lors de la suppression");
         }
@@ -60,7 +60,7 @@ export default function Messages() {
 
       {messages.map((m) => (
         <div
-          key={m.id}
+          key={m._id}
           style={{
             background: "#f9fafb",
             padding: 12,
@@ -80,7 +80,7 @@ export default function Messages() {
           </div>
           <p>{m.message}</p>
           <button
-            onClick={() => handleDelete(m.id)}
+            onClick={() => handleDelete(m._id)}
             style={{
               background: "#ef4444",
               color: "white",
