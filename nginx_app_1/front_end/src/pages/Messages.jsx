@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 export default function Messages() {
   const [messages, setMessages] = useState([]);
 
-  // Charger les messages depuis l’API au montage
   useEffect(() => {
     async function fetchMessages() {
       try {
@@ -23,7 +22,7 @@ export default function Messages() {
     fetchMessages();
   }, []);
 
-  // Suppression d’un message via API
+
   async function handleDelete(id) {
     if (window.confirm("Supprimer ce message ?")) {
       try {
