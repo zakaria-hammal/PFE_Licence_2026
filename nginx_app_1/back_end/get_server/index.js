@@ -8,7 +8,7 @@ app.use(express.json());
 
 async function connectDB() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/messagedb');
+        await mongoose.connect('mongodb://mongo:27017/messagedb');
         console.log('Connected to messagedb database (GET server)');
     } catch (err) {
         console.error('Database connection error:', err);
@@ -38,6 +38,9 @@ async function connectDB() {
         }
     });
 
+    app.get('/health', (req, res) => {
+        res.status(200).send('OK');
+    });
 
     app.listen(3000, () => {
         console.log('GET server is listening at port 3000');

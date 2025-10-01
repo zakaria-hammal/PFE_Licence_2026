@@ -2,12 +2,13 @@ const express = require("express");
 const app = express();
 const mongoose = require("mongoose");
 const cors = require("cors");
+
 app.use(cors());
 app.use(express.json())
 
 async function connectDB() {
     try {
-        await mongoose.connect('mongodb://127.0.0.1:27017/messagedb');
+        await mongoose.connect('mongodb://mongo:27017/messagedb');
         console.log('Connected to messagedb database');
     } catch (err) {
         console.error('Database connection error:', err);
@@ -53,7 +54,10 @@ async function connectDB() {
             res.status(500).send("Server error");
         }
     });
-
+    
+    app.get('/health', (req, res) => {
+        res.status(200).send('OK');
+    });
 
     app.listen(3000, () => {
         console.log('Server is listening at port 3000');
