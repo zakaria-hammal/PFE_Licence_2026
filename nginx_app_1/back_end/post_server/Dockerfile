@@ -6,6 +6,6 @@ EXPOSE 3000
 
 COPY package.json package-lock.json ./
 RUN npm ci
-COPY ./server.js ./
+COPY ./index.js ./
 
 CMD ["node", "server.js"]
