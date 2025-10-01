@@ -1,0 +1,36 @@
+
+
+This repository contains scripts to automatically set up all components of the nginx app on Ubuntu Server. Each script installs required dependencies, clones the repository, configures the environment, and starts the services.
+
+Important: These scripts are designed specifically for Ubuntu Server (tested with Ubuntu 22.04). They may not work on other operating systems.
+
+Scripts Overview
+Component	Script File	                                                    Description
+Frontend	setup_frontend.sh	           Installs Node.js, clones the frontend, installs npm dependencies, and starts the frontend server.
+Get Backend	setup_backend.sh	           Installs Node.js, clones the get backend, installs npm dependencies, and starts the get backend server.
+Post Backend	setup_backendp.sh	           Installs Node.js, clones the post backend, installs npm dependencies, and starts the post backend server.
+MongoDB	        setup_mongodb.sh	           Installs MongoDB, initializes the database, and starts the MongoDB service.
+Nginx	        setup_nginx.sh	                   Installs Nginx, sets up SSL, copies configuration files, and starts the Nginx server.
+How to Run
+
+Open a terminal on a fresh Ubuntu Server VM.
+
+Make the script executable (replace <script> with the script file name):
+
+chmod +x <script>
+
+
+Run the script:
+
+./<script>
+
+
+Wait for the script to finish. Once completed, the component will be installed and running.
+
+Notes:
+
+Make sure each VM has a unique IP address for proper Nginx routing.
+
+Scripts must be run with a user that has sudo privileges.
+
+The automated scripts handle all essential setup; manual steps are only for environment-specific adjustments.

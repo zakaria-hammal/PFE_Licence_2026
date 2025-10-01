@@ -1,0 +1,24 @@
+
+Update the MongoDB connection IP 
+
+Run in terminal:
+cd PFE_Licence_2026/nginx_app_1/back_end/post_server
+nano index.js
+
+Locate the mongoose.connect line:
+await mongoose.connect('mongodb://localhost:27017/messagedb');
+Change it to:
+whatever your MongoDB VM IP is example:
+await mongoose.connect('mongodb://192.168.204.139:27017/messagedb');
+
+
+
+In index.js, make sure your server is listening on the port you configured in Nginx:
+
+app.listen(6001, "0.0.0.0", () => {
+  console.log("GET server is listening at port 6001");
+});
+
+Run:
+
+PORT=6001 node index.js

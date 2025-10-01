@@ -1,0 +1,48 @@
+1. Adjust Form.jsx
+
+run these commands in the terminal:
+cd PFE_Licence_2026/nginx_app_1/front_end/components
+nano Form.jsx
+
+Locate the fetch call in handleSubmit():
+const res = await fetch("https://localhost/modify/addMessage", {
+
+change it to:
+const res = await fetch("/modify/addMessage", {
+
+2. Adjust Messages.jsx:
+
+run these commands in the terminal:
+cd PFE_Licence_2026/nginx_app_1/front_end/pages
+nano Messages.jsx
+
+Locate the fetch call inside useEffect() that retrieves messages:
+
+const res = await fetch("https://localhost/get/messages");
+
+change it to:
+
+const res = await fetch("/messages");
+
+and locate the handleDelete() fetch call:
+
+const res = await fetch(`http://192.168.204.141:6001/modify/deleteMessage/${id}`, {
+
+change it to:
+const res = await fetch(`https://localhost/modify/deleteMessage/${id}`, {
+
+Open vite.config.js:
+
+cd PFE_Licence_2026/nginx_app_1/front_end
+nano vite.config.js
+
+
+Add the server section above or merge it into the existing defineConfig:
+
+server: {
+  host: true,
+  allowedHosts: 'all'
+
+
+
+

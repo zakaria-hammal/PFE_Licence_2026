@@ -1,0 +1,17 @@
+Configure remote access
+
+Edit MongoDB config:
+
+sudo nano /etc/mongod.conf
+
+
+Find bindIp under net and add your network IP:
+
+net:
+  port: 27017
+  bindIp: 0.0.0.0  # or 192.168.x.x for VM network
+
+
+Restart MongoDB:
+
+sudo systemctl restart mongod
